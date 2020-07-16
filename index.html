@@ -116,6 +116,7 @@
 
               // Gathering the data from the object array
               let timeContDiv = $("#time-block-container");
+              let newDiv = $("<div>");
               let hourLabel = $(`<label>` + plannerTimeSlots[i].hour + "</label>");
               let eventInput = $(`<input id="entry">` + plannerTimeSlots[i].input + "</input>");
               let saveBtn = $("<button>")
@@ -124,9 +125,11 @@
               eventInput.addClass("time-block").attr("id", "entry");
               saveBtn.attr("id", "saveBtn").addClass("saveBtn").text("Save");
 
-              timeContDiv.append(hourLabel);
-              timeContDiv.append(eventInput);
-              timeContDiv.append(saveBtn);
+              timeContDiv.append(newDiv);
+              newDiv.append(hourLabel);
+              newDiv.append(eventInput);
+              newDiv.append(saveBtn);
+              newDiv.append("<br>");
 
             }
           }
