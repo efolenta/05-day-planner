@@ -118,7 +118,7 @@
               let timeContDiv = $("#time-block-container");
               let newDiv = $("<div>");
               let hourLabel = $(`<label>` + plannerTimeSlots[i].hour + "</label>");
-              let eventInput = $(`<input id="entry">` + plannerTimeSlots[i].input + "</input>");
+              let eventInput = $(`<input>` + plannerTimeSlots[i].input + "</input>");
               let saveBtn = $("<button>")
               
               hourLabel.addClass("hour");
@@ -137,7 +137,7 @@
           
           // For Saving Inputs
           $(saveBtn).on("click", function() {
-            alert("Button has been clicked!");
+            alert("Event has been saved!");
           })
       });    
     </script>
