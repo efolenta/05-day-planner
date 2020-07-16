@@ -27,60 +27,55 @@
     </header>
     <div class="container">
       <!-- Timeblocks go here -->
-      <div class="row" id="timeblock-container">
-        <label class="hour" for="9am">9am:</label>
-        <input type="text" id="9am-entry" name="9am">
-        <button class="saveBtn">Save</button>
+      <div class="row" id="time-block-container">
+
       </div>
     </div>
 
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script>
       $(document).ready(function() {
-          let currentDate = new Date();
-          let currentTime = currentDate.getHours() + ":" + currentDate.getMinutes();
           let plannerItemCount = 0;
-          let timeblockContainer = document.getElementById('timeblock-container')
           var plannerTimeSlots = [
             {
               hour: "9am",
-              entry: "",
+              input: "",
             },
             {
               hour: "10am",
-              entry: "",
+              input: ""
             },
             {
               hour: "11am",
-              entry: "",
+              input: ""
             },
             {
               hour: "12pm",
-              entry: "",
+              input: ""
             },
             {
               hour: "1pm",
-              entry: "",
+              input: ""
             },
             {
               hour: "2pm",
-              entry: "",
+              input: ""
             },
             {
               hour: "3pm",
-              entry: "",
+              input: ""
             },
             {
               hour: "4pm",
-              entry: "",
+              input: ""
             },
             {
               hour: "5pm",
-              entry: "",
-            }];
-
-            function loadTimeBlocks() {
-              
-            }
+              input: ""
+            },
+          ];
             
             initializePlanner();
 
@@ -93,6 +88,7 @@
               name = prompt("Please type in your name!");
               $('#name').html(`<h2>Prepared for ${name}</h2>`);
               localStorage.setItem("name", name);
+              loadPlanner();
             }
             else {
               console.log("Stored user detected!");
@@ -101,56 +97,47 @@
               // Load the stored name
               alert(`Welcome back ${name}!`);
               // Load the existing planner entries
-              // loadPlanner();
+              loadPlanner();
             }
+          }
 
+
+          //Function for loading the planner HTML data 
           function loadPlanner() {
+            let currentDate = moment().format('MMMM Do YYYY');
+            $('#currentDay').html(`Today is ${currentDate}`);
             let plannerItems = localStorage.getItem("items");
             localStorage.getItem("items");
+            let timeBlockContainer = $("#time-block-container");
+            let timeBlock = $("#time-block");
+
+            // Looping through the object array
             for (var i = 0; i < plannerTimeSlots.length; i++) {
-              $('#timeblocks').append($('<label>').text(plannerTimeSlots.hour));
+
+              // Gathering the data from the object array
+              let timeContDiv = $("#time-block-container");
+              let hourLabel = $(`<label>` + plannerTimeSlots[i].hour + "</label>");
+              let eventInput = $(`<input id="entry">` + plannerTimeSlots[i].input + "</input>");
+              let saveBtn = $("<button>")
+              
+              hourLabel.addClass("hour");
+              eventInput.addClass("time-block").attr("id", "entry");
+              saveBtn.attr("id", "saveBtn").addClass("saveBtn").text("Save");
+
+              timeContDiv.append(hourLabel);
+              timeContDiv.append(eventInput);
+              timeContDiv.append(saveBtn);
 
             }
           }
 
-          function entryPlanner() {
-            for (var i=0; i < plannerTimeSlots.length; i++) {
-              $('#timeblocks').append($('<label>').text(plannerTimeSlots[0].hour));
-
-            }
-          }
-     
-        
-            // if (localStorage.getItem("name") === null) {
-
-            // var setName = prompt("Please type in your name!");
-            // alert(`Welcome ${setName} to the day planner! We are getting things ready for you.`)
-            // $('#name').html(`<h2>Prepared for ${name}</h2>`);
-            // alert(`The current time is ${currentTime}`);
-
-            // }
-            // else if (name === true) {
-            //   alert(`Welcome back ${name}`);
-            //   $('#name').html(`<h2>Prepared for ${name}</h2>`);
-            // }
-            // else {
-            //   alert("something else");
-            // }
-          }
-
-          // initializePlanner();
-
-
-          if (currentTime  <= 9 ) {
-          alert("It is currently too early to work!");
-
-          } else if (currentTime >= 18) {
-          alert("It is currently after work hours! Go home!");
-          }
-
+          
+          // For Saving Inputs
+          $(saveBtn).on("click", function() {
+            alert("Button has been clicked!");
+          })
       });    
     </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    
   </body>
 </html>
